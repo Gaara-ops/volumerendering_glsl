@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Shader Files">
+      <UniqueIdentifier>{4b62b1d0-dc8e-4d20-b41b-bf7e38f8620d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{ba4a4d99-32ea-4b4b-9694-000e6381c928}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\glutils">
+      <UniqueIdentifier>{0998e74f-755e-4d83-b560-807ac51b65dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\volrend">
+      <UniqueIdentifier>{a6006fd4-70c2-43f2-a0a7-7b20ac76d55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\file">
+      <UniqueIdentifier>{8dd8f9f8-4669-4137-a4c3-41506082eba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Files\vr1pass">
+      <UniqueIdentifier>{c858f9ec-3bee-470b-baaa-6b391da35de5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderingmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\simplearoundcamera.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderingparameters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\datamanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glutils\texture3d.cpp">
+      <Filter>Source Files\glutils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glutils\texture1d.cpp">
+      <Filter>Source Files\glutils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glutils\texture2d.cpp">
+      <Filter>Source Files\glutils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glutils\shader.cpp">
+      <Filter>Source Files\glutils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glutils\framebufferobject.cpp">
+      <Filter>Source Files\glutils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glutils\computeshader.cpp">
+      <Filter>Source Files\glutils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glutils\bufferobject.cpp">
+      <Filter>Source Files\glutils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glutils\arrayobject.cpp">
+      <Filter>Source Files\glutils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\volrend\transferfunction1d.cpp">
+      <Filter>Source Files\volrend</Filter>
+    </ClCompile>
+    <ClCompile Include="src\volrend\utils.cpp">
+      <Filter>Source Files\volrend</Filter>
+    </ClCompile>
+    <ClCompile Include="src\volrend\volume.cpp">
+      <Filter>Source Files\volrend</Filter>
+    </ClCompile>
+    <ClCompile Include="src\volrend\reader.cpp">
+      <Filter>Source Files\volrend</Filter>
+    </ClCompile>
+    <ClCompile Include="src\file\pvm.cpp">
+      <Filter>Source Files\file</Filter>
+    </ClCompile>
+    <ClCompile Include="src\file\rawloader.cpp">
+      <Filter>Source Files\file</Filter>
+    </ClCompile>
+    <ClCompile Include="src\volrend\transferfunction.cpp">
+      <Filter>Source Files\volrend</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glutils\gutils.cpp">
+      <Filter>Source Files\glutils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vr1pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\volrenderbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\renderingmanager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\simplearoundcamera.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\defines.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\datamanager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderingparameters.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glutils\texture2d.h">
+      <Filter>Source Files\glutils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glutils\texture3d.h">
+      <Filter>Source Files\glutils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glutils\texture1d.h">
+      <Filter>Source Files\glutils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glutils\shader.h">
+      <Filter>Source Files\glutils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glutils\framebufferobject.h">
+      <Filter>Source Files\glutils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glutils\computeshader.h">
+      <Filter>Source Files\glutils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glutils\arrayobject.h">
+      <Filter>Source Files\glutils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glutils\bufferobject.h">
+      <Filter>Source Files\glutils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\volrend\transferfunction1d.h">
+      <Filter>Source Files\volrend</Filter>
+    </ClInclude>
+    <ClInclude Include="src\volrend\utils.h">
+      <Filter>Source Files\volrend</Filter>
+    </ClInclude>
+    <ClInclude Include="src\volrend\volume.h">
+      <Filter>Source Files\volrend</Filter>
+    </ClInclude>
+    <ClInclude Include="src\volrend\reader.h">
+      <Filter>Source Files\volrend</Filter>
+    </ClInclude>
+    <ClInclude Include="src\volrend\summedareatable.h">
+      <Filter>Source Files\volrend</Filter>
+    </ClInclude>
+    <ClInclude Include="src\volrend\transferfunction.h">
+      <Filter>Source Files\volrend</Filter>
+    </ClInclude>
+    <ClInclude Include="src\file\pvm.h">
+      <Filter>Source Files\file</Filter>
+    </ClInclude>
+    <ClInclude Include="src\file\rawloader.h">
+      <Filter>Source Files\file</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glutils\gutils.h">
+      <Filter>Source Files\glutils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\volrenderbase.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vr1pass.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\raybboxintersection.frag">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="shader\blinnphonggradient.frag">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="shader\vr1pass\singlepass.vert">
+      <Filter>Shader Files\vr1pass</Filter>
+    </None>
+    <None Include="shader\vr1pass\singlepass.frag">
+      <Filter>Shader Files\vr1pass</Filter>
+    </None>
+  </ItemGroup>
+</Project>
