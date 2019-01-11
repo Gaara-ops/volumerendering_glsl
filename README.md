@@ -54,4 +54,4 @@ a alpha_scalar_valueN
 
 ---
 
-![Screenshot](https://bitbucket.org/lquatrin/glsl_volumerendering/raw/master/screenshots/ssexample.png)
+![Screenshot](screenshots/ssexample.png)
