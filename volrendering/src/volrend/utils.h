@@ -6,7 +6,6 @@
 
 #include "transferfunction.h"
 #include "volume.h"
-#include "summedareatable.h"
 
 #include <glm/glm.hpp>
 
@@ -36,14 +35,6 @@ namespace vr
                                      int last_y = 0,
                                      int last_z = 0);
 
-  gl::Texture3D* GenerateRGBATexture (vr::Volume* vol, vr::TransferFunction* tf,
-                                        int init_x = 0,
-                                        int init_y = 0,
-                                        int init_z = 0,
-                                        int last_x = 0,
-                                        int last_y = 0,
-                                        int last_z = 0);
-
   gl::Texture3D* GenerateGradientTexture (vr::Volume* vol,
                                             int gradient_sample_size = 1,
                                             int filter_nxnxn = 0,
@@ -58,16 +49,7 @@ namespace vr
   // https://en.wikipedia.org/wiki/Sobel_operator  
   gl::Texture3D* GenerateSobelFeldmanGradientTexture (Volume* vol);
   
-  //https://stackoverflow.com/questions/1972172/interpolating-a-scalar-field-in-a-3d-space
-  //https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3719212/
-
-  gl::Texture2D* GenerateNoiseTexture (float maxvalue, int w, int h);
-
   void GenerateSyntheticVolumetricModels (int d = 120, float s = 30.0f);
-  
-  gl::Texture3D* GenerateExtinctionSAT3DTex (Volume* vol, TransferFunction* tf);
-
-  gl::Texture3D* GenerateScalarFieldSAT3DTex (Volume* vol);
 }
 
 #endif

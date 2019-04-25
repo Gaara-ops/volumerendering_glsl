@@ -10,8 +10,6 @@ uniform sampler1D TexTransferFunc;
 
 uniform vec3 VolumeScaledSizes;
 
-uniform float ScatteringAlbedo;
-
 uniform int ApplyPhongShading;
 
 uniform float StepSize;
@@ -46,7 +44,7 @@ void main (void)
   FragColor = vec4(1.0, 1.0, 1.0, 0.0);
 
   // Initialization Parameters
-  vec3 L = vec3(0);
+  vec3 I = vec3(0);
   float s = 0.0;
 
   // Get initial pos
@@ -62,28 +60,30 @@ void main (void)
     pos = pos + r.Dir * d;
     vec4 src = GetFromTransferFunction(pos);
    
-    vec3 Lc = src.rgb;
+    vec3 Le = src.rgb;
 
     // if alpha is > 0.0, apply shading
     if (src.a > 0.0)
     {
       // Apply Blinn-Phong Shading using Gradient Texture
       if (ApplyPhongShading == 1)
-        Lc = ShadeBlinnPhong(pos - hvolscalesize, pos, r.Origin, src.rgb);
+        Le = ShadeBlinnPhong(pos - hvolscalesize, pos, r.Origin, src.rgb);
     }
 
     // From "Local and Global Illumination in the Volume Rendering Integral" (2010)
-    float expt = exp(-src.a * d);
+    // . Integrating using ray segments
+    float segT = exp(-src.a * d);
       
     // Update color and transparency
-    L.rgb = L.rgb + T * (1.0 - expt) * Lc;
-    T = T * expt;
+    I += T * (1.0 - segT) * Le;
+    T = T * segT;
 
+    // equals to 'opacity > 0.95', since opacity = 1.0 - T
     if (T < 0.05)
       break; 
 
     s = s + d;
   }
   
-  FragColor = vec4(L, 1.0 - T);
+  FragColor = vec4(I, 1.0 - T);
 }

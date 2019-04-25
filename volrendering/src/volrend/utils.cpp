@@ -1,5 +1,4 @@
 #include "utils.h"
-#include "summedareatable.h"
 #include <iostream>
 #include <random>
 #include <fstream>
@@ -54,53 +53,6 @@ namespace vr
     delete[] scalar_values;
 
     return tex3d_r;
-  }
-
-  gl::Texture3D* GenerateRGBATexture (Volume* vol, TransferFunction* tf, int init_x, int init_y, int init_z,
-                                                     int last_x, int last_y, int last_z)
-  {
-    if (!vol && !vol->Validate()) return NULL;
-
-    int size_x = abs(last_x - init_x);
-    int size_y = abs(last_y - init_y);
-    int size_z = abs(last_z - init_z);
-
-    printf("size_x: %d, size_y: %d, size_z: %d\n", size_x, size_y, size_z);
-    GLFloat4* scalar_values = new GLFloat4[size_x*size_y*size_z];
-
-    double vol_max_density = vol->GetMaxDensity();
-    for (int k = 0; k < size_z; k++)
-    {
-      for (int j = 0; j < size_y; j++)
-      {
-        for (int i = 0; i < size_x; i++)
-        {
-          float val = (GLfloat)vol->SampleVolume((i + init_x), (j + init_y), (k + init_z));
-          glm::vec4 vrgba = tf->Get(val);
-
-          scalar_values[i + (j * size_x) + (k * size_x * size_y)].r = vrgba.r;
-          scalar_values[i + (j * size_x) + (k * size_x * size_y)].g = vrgba.g;
-          scalar_values[i + (j * size_x) + (k * size_x * size_y)].b = vrgba.b;
-          scalar_values[i + (j * size_x) + (k * size_x * size_y)].a = vrgba.a;
-
-        }
-      }
-    }
-
-    gl::Texture3D* tex3d = new gl::Texture3D(size_x, size_y, size_z);
-
-    tex3d->GenerateTexture(TEXTURE_FILTER, TEXTURE_FILTER, TEXTURE_WRAP, TEXTURE_WRAP, TEXTURE_WRAP);
-
-#ifdef USE_16F_INTERNAL_FORMAT
-    tex3d->SetData(scalar_values, GL_RGBA16F, GL_RGBA, GL_FLOAT);
-#else
-    tex3d->SetData(scalar_values, GL_RGBA32F, GL_RGBA, GL_FLOAT);
-#endif
-    gl::ExitOnGLError("ERROR: After SetData");
-
-    delete[] scalar_values;
-
-    return tex3d;
   }
 
   gl::Texture3D* GenerateGradientTexture (Volume* vol, int gradient_sample_size,
@@ -309,23 +261,6 @@ namespace vr
     return tex3d_gradient;
   }
 
-  gl::Texture2D* GenerateNoiseTexture (float maxvalue, int w, int h)
-  {
-    std::default_random_engine generator;
-    std::uniform_real_distribution<float> distribution(0.0f, 1.0f);
-
-    GLfloat* disturb_points = new GLfloat[w * h];
-    for (int i = 0; i < w * h; i++) {
-      float number = distribution(generator) * maxvalue;
-      disturb_points[i] = number;
-    }
-    
-    gl::Texture2D* tex2d = new gl::Texture2D(w, h);
-    tex2d->GenerateTexture(GL_NEAREST, GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
-    tex2d->SetData(disturb_points, GL_R16F, GL_RED, GL_FLOAT);
-    return tex2d;
-  }
-
   void GenerateSyntheticVolumetricModels (int d, float s)
   {
     std::ofstream gaussianvol_file;
@@ -349,86 +284,5 @@ namespace vr
       }
       gaussianvol_file.close();
     }
-  }
-
-  gl::Texture3D* GenerateExtinctionSAT3DTex (Volume* vol, TransferFunction* tf)
-  {
-    // 1
-    // First, sample the initial "grid" and build SAT
-    vr::SummedAreaTable3D<double> sat3d(vol->GetWidth(), vol->GetHeight(), vol->GetDepth());
-    for (int x = 0; x < vol->GetWidth(); x++)
-    {
-      for (int y = 0; y < vol->GetHeight(); y++)
-      {
-        for (int z = 0; z < vol->GetDepth(); z++)
-        {
-          double val = tf->GetExt(vol->SampleVolume(x, y, z), vol->GetMaxDensity());
-          sat3d.SetValue(val, x, y, z);
-        }
-      }
-    }
-    sat3d.BuildSAT();
-
-    // 2
-    // Then, we must create and generate the 3D texture
-    GLfloat* diff_mat = new GLfloat[vol->GetWidth() * vol->GetHeight() * vol->GetDepth()];
-    double* sat_data = sat3d.GetData();
-    for (int i = 0; i < vol->GetWidth() * vol->GetHeight() * vol->GetDepth(); i++)
-      diff_mat[i] = (GLfloat)sat_data[i];
-
-    gl::Texture3D* tex3d_sat = new gl::Texture3D(vol->GetWidth(), vol->GetHeight(), vol->GetDepth());
-    tex3d_sat->GenerateTexture(GL_LINEAR,
-                               GL_LINEAR,
-                               GL_CLAMP_TO_EDGE,
-                               GL_CLAMP_TO_EDGE,
-                               GL_CLAMP_TO_EDGE);
-    
-    tex3d_sat->SetData((GLvoid*)diff_mat, GL_R32F, GL_RED, GL_FLOAT);
-    
-    delete[] diff_mat;
-    
-    gl::ExitOnGLError("volrend/utils.cpp - GenerateExtinctionSAT3DTex()");
-    return tex3d_sat;
-  }
-  
-  gl::Texture3D* GenerateScalarFieldSAT3DTex (Volume* vol)
-  {
-    // 1
-    // First, sample the initial "grid" and build SAT
-    vr::SummedAreaTable3D<double> sat3d(vol->GetWidth(), vol->GetHeight(), vol->GetDepth());
-    for (int x = 0; x < vol->GetWidth(); x++)
-    {
-      for (int y = 0; y < vol->GetHeight(); y++)
-      {
-        for (int z = 0; z < vol->GetDepth(); z++)
-        {
-          double val = (double)vol->SampleVolume(x, y, z) / vol->GetMaxDensity();
-          sat3d.SetValue(val, x, y, z);
-        }
-      }
-    }
-    sat3d.BuildSAT();
-
-    // 2
-    // Then, we must create and generate the 3D texture
-    GLfloat* diff_mat = new GLfloat[vol->GetWidth() * vol->GetHeight() * vol->GetDepth()];
-    double* sat_data = sat3d.GetData();
-    for (int i = 0; i < vol->GetWidth() * vol->GetHeight() * vol->GetDepth(); i++)
-      diff_mat[i] = (GLfloat)sat_data[i];
-
-    gl::Texture3D* tex3d_sat = new gl::Texture3D(vol->GetWidth(), vol->GetHeight(), vol->GetDepth());
-    tex3d_sat->GenerateTexture(GL_LINEAR,
-      GL_LINEAR,
-      GL_CLAMP_TO_EDGE,
-      GL_CLAMP_TO_EDGE,
-      GL_CLAMP_TO_EDGE);
-
-    tex3d_sat->SetData((GLvoid*)diff_mat, GL_R32F, GL_RED, GL_FLOAT);
-
-    delete[] diff_mat;
-
-    gl::ExitOnGLError("volrend/utils.cpp - GenerateScalarFieldSAT3DTex()");
-    return tex3d_sat;
-
   }
 }

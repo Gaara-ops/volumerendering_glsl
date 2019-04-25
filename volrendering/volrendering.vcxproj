@@ -54,7 +54,6 @@
     <ClInclude Include="src\renderingparameters.h" />
     <ClInclude Include="src\volrenderbase.h" />
     <ClInclude Include="src\volrend\reader.h" />
-    <ClInclude Include="src\volrend\summedareatable.h" />
     <ClInclude Include="src\volrend\transferfunction.h" />
     <ClInclude Include="src\volrend\transferfunction1d.h" />
     <ClInclude Include="src\volrend\utils.h" />

@@ -151,9 +151,6 @@
     <ClInclude Include="src\volrend\reader.h">
       <Filter>Source Files\volrend</Filter>
     </ClInclude>
-    <ClInclude Include="src\volrend\summedareatable.h">
-      <Filter>Source Files\volrend</Filter>
-    </ClInclude>
     <ClInclude Include="src\volrend\transferfunction.h">
       <Filter>Source Files\volrend</Filter>
     </ClInclude>
